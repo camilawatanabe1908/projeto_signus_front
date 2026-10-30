@@ -5,6 +5,8 @@ import { validarEmail } from "../utils/validacoes";
 import { Input } from "../components/Input";
 import { login } from "../services/autenticacao";
 import { ApiError } from "../services/api";
+import logo from "../assets/logo-escura.png";
+import "./Auth.css";
 
 export function Login() {
     const navigate = useNavigate();
@@ -48,7 +50,7 @@ export function Login() {
         setEnviando(true);
         try {
             await login(email, senha);
-            navigate("/home"); 
+            navigate("/home");
         } catch (erro) {
             setErroGeral(
                 erro instanceof ApiError ? erro.message : "Erro inesperado. Tente novamente."
@@ -59,35 +61,46 @@ export function Login() {
     }
 
     return (
-        <div className="app">
-            <h1>Entrar</h1>
+        <div className="auth-page">
+            <div className="auth-card">
+                <div className="auth-brand">
+                    <img src={logo} alt="Signus Som e Luz" className="auth-logo" />
+                </div>
 
-            <form onSubmit={handleSubmit} noValidate>
-                <Input
-                    type="email"
-                    placeholder="Digite seu e-mail"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    erro={erroEmail}
-                />
+                <h1 className="auth-title">Entrar</h1>
 
-                <Input
-                    type="password"
-                    placeholder="Digite sua senha"
-                    value={senha}
-                    onChange={(event) => setSenha(event.target.value)}
-                    erro={erroSenha}
-                />
+                <form onSubmit={handleSubmit} noValidate className="auth-form">
+                    <Input
+                        type="email"
+                        placeholder="E-mail"
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                        erro={erroEmail}
+                    />
 
-                {erroGeral && <p role="alert">{erroGeral}</p>}
+                    <Input
+                        type="password"
+                        placeholder="Senha"
+                        value={senha}
+                        onChange={(event) => setSenha(event.target.value)}
+                        erro={erroSenha}
+                    />
 
-                <button type="submit" disabled={enviando}>
-                    {enviando ? "Entrando..." : "Entrar"}
-                </button>
-            </form>
-            <p>
-                Não tem conta? <Link to="/cadastro">Cadastre-se</Link>
-            </p>
+                    {erroGeral && (
+                        <p role="alert" className="form-alert">
+                            {erroGeral}
+                        </p>
+                    )}
+
+                    <button type="submit" disabled={enviando} className="btn btn-primary">
+                        {enviando ? "Entrando..." : "Entrar"}
+                    </button>
+                </form>
+
+                <p className="auth-footer">
+                    Não tem conta? <Link to="/cadastro">Cadastre-se</Link>
+                </p>
+            </div>
         </div>
     );
 }

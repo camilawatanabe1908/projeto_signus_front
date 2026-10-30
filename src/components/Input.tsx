@@ -1,4 +1,5 @@
 import type { ChangeEvent } from "react";
+import "./Input.css";
 
 interface InputProps {
   type: string;
@@ -10,14 +11,15 @@ interface InputProps {
 
 export function Input({ type, placeholder, value, onChange, erro }: InputProps) {
   return (
-    <div>
+    <div className="form-field">
       <input
         type={type}
         placeholder={placeholder}
+        aria-label={placeholder}
         value={value}
         onChange={onChange}
       />
-      {erro && <span>{erro}</span>}
+      {erro && <span className="field-error">{erro}</span>}
     </div>
   );
 }
