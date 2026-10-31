@@ -7,7 +7,7 @@ export function Home() {
 
     function handleSair() {
         logout();
-        navigate("/login");
+        navigate("/admin/login");
     }
 
     return (

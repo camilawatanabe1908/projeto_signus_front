@@ -83,7 +83,7 @@ export function Cadastro() {
                 senha,
                 confirmacaoSenha: confirmarSenha,
             });
-            navigate("/login");
+            navigate("/admin/login");
         } catch (erro) {
             if (erro instanceof ApiError) {
                 setErroGeral(erro.message);
@@ -157,7 +157,7 @@ export function Cadastro() {
                 </form>
 
                 <p className="auth-footer">
-                    Já tem conta? <Link to="/login">Entrar</Link>
+                    Já tem conta? <Link to="/admin/login">Entrar</Link>
                 </p>
             </div>
         </div>

@@ -50,7 +50,7 @@ export function Login() {
         setEnviando(true);
         try {
             await login(email, senha);
-            navigate("/home");
+            navigate("/admin/home");
         } catch (erro) {
             setErroGeral(
                 erro instanceof ApiError ? erro.message : "Erro inesperado. Tente novamente."
@@ -96,9 +96,9 @@ export function Login() {
                         {enviando ? "Entrando..." : "Entrar"}
                     </button>
                 </form>
-
+                    
                 <p className="auth-footer">
-                    Não tem conta? <Link to="/cadastro">Cadastre-se</Link>
+                    Não tem conta? <Link to="/admin/cadastro">Cadastre-se</Link>
                 </p>
             </div>
         </div>
