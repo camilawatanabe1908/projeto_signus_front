@@ -32,3 +32,8 @@
   color: var(--error);
   font-size: 0.8rem;
 }
+
+.form-field input:disabled {
+  color: var(--text-muted);
+  cursor: not-allowed;
+}

@@ -51,3 +51,15 @@ export function obterUsuario(): Usuario | null {
     return null;
   }
 }
+
+export type DadosEdicao = {
+  nome: string;
+  cpf: string;
+  senha: string;
+  confirmacaoSenha: string;
+};
+
+export async function atualizarPerfil(dados: DadosEdicao): Promise<Usuario> {
+  const resposta = await api.put<Usuario>("/usuarios/me", dados);
+  return resposta.data;
+}

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { validarEmail, validarCpf, somenteNumeros } from "../utils/validacoes";
+import { validarEmail, validarCpf, somenteNumeros, REGEX_SENHA } from "../utils/validacoes";
 import { Input } from "../components/Input";
 import { cadastrar } from "../services/autenticacao";
 import { ApiError } from "../services/api";
@@ -17,7 +17,6 @@ interface Erros {
     confirmarSenha?: string;
 }
 
-const REGEX_SENHA = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).+$/;
 
 export function Cadastro() {
     const navigate = useNavigate();

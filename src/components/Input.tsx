@@ -7,9 +7,10 @@ interface InputProps {
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   erro?: string;
+  disabled?: boolean;
 }
 
-export function Input({ type, placeholder, value, onChange, erro }: InputProps) {
+export function Input({ type, placeholder, value, onChange, erro, disabled }: InputProps) {
   return (
     <div className="form-field">
       <input
@@ -18,6 +19,7 @@ export function Input({ type, placeholder, value, onChange, erro }: InputProps) 
         aria-label={placeholder}
         value={value}
         onChange={onChange}
+        disabled={disabled}
       />
       {erro && <span className="field-error">{erro}</span>}
     </div>

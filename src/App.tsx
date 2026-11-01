@@ -9,6 +9,7 @@ import { Galeria } from "./pages/site/Galeria";
 import { Orcamento } from "./pages/site/Orcamento";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { UsuarioProvider } from "./contexts/UsuarioProvider";
+import { Perfil } from "./pages/Perfil";
 
 function App() {
   return (
@@ -31,6 +32,14 @@ function App() {
             element={
               <RotaProtegida>
                 <Home />
+              </RotaProtegida>
+            }
+          />
+          <Route
+            path="/admin/perfil"
+            element={
+              <RotaProtegida>
+                <Perfil />
               </RotaProtegida>
             }
           />
