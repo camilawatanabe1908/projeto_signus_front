@@ -7,6 +7,7 @@ import { cadastrar } from "../services/autenticacao";
 import { ApiError } from "../services/api";
 import logo from "../assets/logo-escura.png";
 import "./Auth.css";
+import { Botao } from "../components/Botao";
 
 interface Erros {
     nome?: string;
@@ -151,9 +152,10 @@ export function Cadastro() {
                         </p>
                     )}
 
-                    <button type="submit" disabled={enviando} className="btn btn-primary">
-                        {enviando ? "Criando conta..." : "Criar conta"}
-                    </button>
+                    <Botao type="submit" disabled={enviando}>
+                        Cadastrar
+                    </Botao>
+                    
                 </form>
 
                 <p className="auth-footer">
