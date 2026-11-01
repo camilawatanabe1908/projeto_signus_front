@@ -7,6 +7,7 @@ import { login } from "../services/autenticacao";
 import { ApiError } from "../services/api";
 import logo from "../assets/logo-escura.png";
 import "./Auth.css";
+import { Botao } from "../components/Botao";
 
 export function Login() {
     const navigate = useNavigate();
@@ -92,11 +93,11 @@ export function Login() {
                         </p>
                     )}
 
-                    <button type="submit" disabled={enviando} className="btn btn-primary">
-                        {enviando ? "Entrando..." : "Entrar"}
-                    </button>
+                    <Botao type="submit" disabled={enviando}>
+                        Entrar
+                    </Botao>
                 </form>
-                    
+
                 <p className="auth-footer">
                     Não tem conta? <Link to="/admin/cadastro">Cadastre-se</Link>
                 </p>
