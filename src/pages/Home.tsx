@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { logout, obterUsuario } from "../services/autenticacao";
+import { useUsuario } from "../contexts/UsuarioContext";
 import { Botao } from "../components/Botao";
 
 export function Home() {
     const navigate = useNavigate();
-    const usuario = obterUsuario();
+    const { usuario, sair } = useUsuario();
 
     function handleSair() {
-        logout();
+        sair();
         navigate("/admin/login");
     }
 

@@ -8,9 +8,11 @@ import { ApiError } from "../services/api";
 import logo from "../assets/logo-escura.png";
 import "./Auth.css";
 import { Botao } from "../components/Botao";
+import { useUsuario } from "../contexts/UsuarioContext";
 
 export function Login() {
     const navigate = useNavigate();
+    const { atualizarUsuario } = useUsuario();
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [erroEmail, setErroEmail] = useState("");
@@ -50,7 +52,8 @@ export function Login() {
 
         setEnviando(true);
         try {
-            await login(email, senha);
+            const usuario = await login(email, senha);
+            atualizarUsuario(usuario);
             navigate("/admin/home");
         } catch (erro) {
             setErroGeral(
