@@ -11,6 +11,7 @@ import { Galeria } from "./pages/site/Galeria";
 import { Orcamento } from "./pages/site/Orcamento";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { UsuarioProvider } from "./contexts/UsuarioProvider";
+import { PlanosLista } from "./pages/planos/PlanosLista";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           >
             <Route index element={<Navigate to="/admin/home" replace />} />
             <Route path="home" element={<Home />} />
+            <Route path="planos" element={<PlanosLista />} />
           </Route>
 
           <Route path="/admin/login" element={<Login />} />
