@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { validarCpf, somenteNumeros, REGEX_SENHA } from "../utils/validacoes";
+import { mascararCpf } from "../utils/mascaras";
 import { Input } from "../components/Input";
 import { Botao } from "../components/Botao";
 import { atualizarPerfil } from "../services/autenticacao";
@@ -120,7 +121,7 @@ export function Perfil() {
                         type="text"
                         placeholder="CPF"
                         value={cpf}
-                        onChange={(event) => setCpf(event.target.value)}
+                        onChange={(event) => setCpf(mascararCpf(event.target.value))}
                         erro={erros.cpf}
                     />
 

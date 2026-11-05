@@ -12,6 +12,7 @@ import { Orcamento } from "./pages/site/Orcamento";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { UsuarioProvider } from "./contexts/UsuarioProvider";
 import { PlanosLista } from "./pages/planos/PlanosLista";
+import { PlanoForm } from "./pages/planos/PlanoForm";
 
 function App() {
   return (
@@ -35,6 +36,8 @@ function App() {
             <Route index element={<Navigate to="/admin/home" replace />} />
             <Route path="home" element={<Home />} />
             <Route path="planos" element={<PlanosLista />} />
+            <Route path="planos/novo" element={<PlanoForm key="novo" />} />
+            <Route path="planos/:id/editar" element={<PlanoForm key="editar" />} />
           </Route>
 
           <Route path="/admin/login" element={<Login />} />

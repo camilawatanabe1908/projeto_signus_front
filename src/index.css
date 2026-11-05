@@ -78,3 +78,22 @@ a:hover {
   align-items: center;
   margin-bottom: 16px;
 }
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 480px;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.campo-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

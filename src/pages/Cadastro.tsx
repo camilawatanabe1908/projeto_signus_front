@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { validarEmail, validarCpf, somenteNumeros, REGEX_SENHA } from "../utils/validacoes";
+import { mascararCpf } from "../utils/mascaras";
 import { Input } from "../components/Input";
 import { cadastrar } from "../services/autenticacao";
 import { ApiError } from "../services/api";
@@ -16,7 +17,6 @@ interface Erros {
     senha?: string;
     confirmarSenha?: string;
 }
-
 
 export function Cadastro() {
     const navigate = useNavigate();
@@ -125,7 +125,7 @@ export function Cadastro() {
                         type="text"
                         placeholder="CPF"
                         value={cpf}
-                        onChange={(event) => setCpf(event.target.value)}
+                        onChange={(event) => setCpf(mascararCpf(event.target.value))}
                         erro={erros.cpf}
                     />
 
@@ -154,7 +154,6 @@ export function Cadastro() {
                     <Botao type="submit" disabled={enviando}>
                         Cadastrar
                     </Botao>
-                    
                 </form>
 
                 <p className="auth-footer">
