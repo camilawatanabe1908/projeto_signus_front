@@ -15,6 +15,8 @@ import { PlanosLista } from "./pages/planos/PlanosLista";
 import { PlanoForm } from "./pages/planos/PlanoForm";
 import { ItensLista } from "./pages/itens/ItensLista";
 import { ItemForm } from "./pages/itens/ItemForm";
+import { ClientesLista } from "./pages/clientes/ClientesLista";
+import { ClienteForm } from "./pages/clientes/ClienteForm";
 
 function App() {
   return (
@@ -43,6 +45,9 @@ function App() {
             <Route path="itens" element={<ItensLista />} />
             <Route path="itens/novo" element={<ItemForm key="novo" />} />
             <Route path="itens/:id/editar" element={<ItemForm key="editar" />} />
+            <Route path="clientes" element={<ClientesLista />} />
+            <Route path="clientes/novo" element={<ClienteForm key="novo" />} />
+            <Route path="clientes/:id/editar" element={<ClienteForm key="editar" />} />
           </Route>
 
           <Route path="/admin/login" element={<Login />} />
@@ -63,4 +68,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; 
