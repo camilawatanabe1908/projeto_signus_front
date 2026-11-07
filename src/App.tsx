@@ -13,6 +13,8 @@ import { NotFoundPage } from "./pages/NotFoundPage";
 import { UsuarioProvider } from "./contexts/UsuarioProvider";
 import { PlanosLista } from "./pages/planos/PlanosLista";
 import { PlanoForm } from "./pages/planos/PlanoForm";
+import { ItensLista } from "./pages/itens/ItensLista";
+import { ItemForm } from "./pages/itens/ItemForm";
 
 function App() {
   return (
@@ -38,6 +40,9 @@ function App() {
             <Route path="planos" element={<PlanosLista />} />
             <Route path="planos/novo" element={<PlanoForm key="novo" />} />
             <Route path="planos/:id/editar" element={<PlanoForm key="editar" />} />
+            <Route path="itens" element={<ItensLista />} />
+            <Route path="itens/novo" element={<ItemForm key="novo" />} />
+            <Route path="itens/:id/editar" element={<ItemForm key="editar" />} />
           </Route>
 
           <Route path="/admin/login" element={<Login />} />
