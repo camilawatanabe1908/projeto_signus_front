@@ -97,3 +97,11 @@ a:hover {
   align-items: center;
   gap: 8px;
 }
+
+.campo-rotulo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
