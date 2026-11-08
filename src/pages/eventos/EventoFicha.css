@@ -1,0 +1,34 @@
+.ficha {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ficha-dados {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.ficha-dado {
+    display: flex;
+    flex-direction: column;
+}
+
+.ficha-dado-rotulo {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+@media print {
+    .sem-impressao,
+    .admin-menu,
+    .admin-hamburguer {
+        display: none !important;
+    }
+
+    .admin-conteudo {
+        margin: 0;
+        padding: 0;
+    }
+}

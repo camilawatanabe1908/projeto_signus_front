@@ -1,12 +1,21 @@
 import { api } from "../api/axios";
 import type { Pagina } from "../types/pagina";
 
+export type ItemPlano = {
+    itemId: number;
+    codigo: string;
+    nome: string;
+    categoria: string;
+    quantidade: number;
+};
+
 export type Plano = {
     id: number;
     nome: string;
     descricao: string | null;
     valorBase: number | null;
     ativo: boolean;
+    itens: ItemPlano[];
 };
 
 export type DadosPlano = {
@@ -14,6 +23,7 @@ export type DadosPlano = {
     descricao: string;
     valorBase: number | null;
     ativo: boolean;
+    itens: { itemId: number; quantidade: number }[];
 };
 
 export async function listarPlanos(pagina: number, limite = 10) {

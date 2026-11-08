@@ -47,15 +47,15 @@
 
 .auth-form .btn {
   width: 100%;
-  padding: 10px 20px;
-  border-radius: 6px;
+  padding: 12px 20px;
+  border-radius: 999px;
 }
 
 .form-alert {
   padding: 8px 12px;
   border-radius: 8px;
-  background-color: rgba(198, 40, 40, 0.08);
-  color: #8e1b1b;
+  background-color: var(--alerta-fundo, rgba(198, 40, 40, 0.08));
+  color: var(--alerta-texto, #8e1b1b);
   font-size: 0.85rem;
 }
 

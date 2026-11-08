@@ -1,5 +1,6 @@
 import { api } from "../api/axios";
 import type { Pagina } from "../types/pagina";
+import type { ItemPlano } from "./planos";
 
 export type StatusEvento =
     | "ORCAMENTO"
@@ -7,6 +8,8 @@ export type StatusEvento =
     | "EM_PREPARACAO"
     | "CONCLUIDO"
     | "CANCELADO";
+
+export type ItemEvento = ItemPlano;
 
 export type Evento = {
     id: number;
@@ -21,6 +24,7 @@ export type Evento = {
     planoId: number | null;
     cliente: { id: number; nome: string } | null;
     plano: { id: number; nome: string } | null;
+    itensExtras: ItemEvento[];
 };
 
 export type DadosEvento = {
@@ -33,6 +37,7 @@ export type DadosEvento = {
     valorNegociado: number | null;
     observacoes: string;
     status?: StatusEvento;
+    itensExtras: { itemId: number; quantidade: number }[];
 };
 
 export async function listarEventos(pagina: number, limite = 10) {

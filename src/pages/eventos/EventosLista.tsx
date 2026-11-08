@@ -116,6 +116,7 @@ export function EventosLista() {
                         titulo: "Ações",
                         render: (evento) => (
                             <div className="acoes">
+                                <Link to={`/admin/eventos/${evento.id}`}>Ver ficha</Link>
                                 <Link to={`/admin/eventos/${evento.id}/editar`}>Editar</Link>
                                 <Botao
                                     type="button"

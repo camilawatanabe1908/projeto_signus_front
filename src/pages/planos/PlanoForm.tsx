@@ -3,7 +3,11 @@ import type { FormEvent } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Input } from "../../components/Input";
 import { Botao } from "../../components/Botao";
+import { EditorItens } from "../../components/EditorItens";
+import type { LinhaItem } from "../../components/EditorItens";
 import { atualizarPlano, buscarPlano, criarPlano } from "../../services/planos";
+import type { ItemPlano } from "../../services/planos";
+import { listarItens } from "../../services/itens";
 import { ApiError } from "../../services/api";
 import { mascararMoeda, moedaParaNumero } from "../../utils/mascaras";
 
@@ -16,6 +20,12 @@ type FormPlano = {
 
 type Erros = {
     nome?: string;
+    itens?: string;
+};
+
+type Opcao = {
+    valor: string;
+    texto: string;
 };
 
 const formVazio: FormPlano = {
@@ -29,21 +39,33 @@ export function PlanoForm() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [form, setForm] = useState<FormPlano>(formVazio);
+    const [linhas, setLinhas] = useState<LinhaItem[]>([]);
+    const [opcoes, setOpcoes] = useState<Opcao[]>([]);
     const [erros, setErros] = useState<Erros>({});
     const [erroGeral, setErroGeral] = useState("");
-    const [carregando, setCarregando] = useState(id !== undefined);
+    const [carregando, setCarregando] = useState(true);
     const [enviando, setEnviando] = useState(false);
 
     useEffect(() => {
-        if (id === undefined) {
-            return;
-        }
-
         let ativo = true;
 
-        buscarPlano(Number(id))
-            .then((plano) => {
-                if (ativo) {
+        async function carregar() {
+            try {
+                const [listaItens, plano] = await Promise.all([
+                    listarItens(1, 100),
+                    id === undefined ? Promise.resolve(null) : buscarPlano(Number(id)),
+                ]);
+
+                if (!ativo) return;
+
+                setOpcoes(
+                    listaItens.dados.map((item) => ({
+                        valor: String(item.id),
+                        texto: `${item.codigo} - ${item.nome}`,
+                    }))
+                );
+
+                if (plano) {
                     setForm({
                         nome: plano.nome,
                         descricao: plano.descricao ?? "",
@@ -53,19 +75,27 @@ export function PlanoForm() {
                                 : mascararMoeda(String(Math.round(plano.valorBase * 100))),
                         ativo: plano.ativo,
                     });
-                    setCarregando(false);
+                    setLinhas(
+                        plano.itens.map((item: ItemPlano) => ({
+                            itemId: String(item.itemId),
+                            quantidade: String(item.quantidade),
+                        }))
+                    );
                 }
-            })
-            .catch((erroApi) => {
+            } catch (erroApi) {
                 if (ativo) {
                     setErroGeral(
                         erroApi instanceof ApiError
                             ? erroApi.message
                             : "Erro inesperado. Tente novamente."
                     );
-                    setCarregando(false);
                 }
-            });
+            } finally {
+                if (ativo) setCarregando(false);
+            }
+        }
+
+        carregar();
 
         return () => {
             ativo = false;
@@ -85,6 +115,16 @@ export function PlanoForm() {
             novosErros.nome = "O nome deve ter entre 3 e 80 caracteres.";
         }
 
+        const idsUsados = linhas.map((linha) => linha.itemId);
+
+        if (linhas.some((linha) => linha.itemId === "")) {
+            novosErros.itens = "Selecione o item em todas as linhas.";
+        } else if (linhas.some((linha) => Number(linha.quantidade) < 1)) {
+            novosErros.itens = "A quantidade deve ser no mínimo 1.";
+        } else if (new Set(idsUsados).size !== idsUsados.length) {
+            novosErros.itens = "Não repita o mesmo item.";
+        }
+
         setErros(novosErros);
 
         if (Object.keys(novosErros).length > 0) {
@@ -96,6 +136,10 @@ export function PlanoForm() {
             descricao: form.descricao.trim(),
             valorBase: moedaParaNumero(form.valorBase),
             ativo: form.ativo,
+            itens: linhas.map((linha) => ({
+                itemId: Number(linha.itemId),
+                quantidade: Number(linha.quantidade),
+            })),
         };
 
         setEnviando(true);
@@ -158,6 +202,14 @@ export function PlanoForm() {
                     />
                     Ativo
                 </label>
+
+                <h2>Itens do plano</h2>
+                <EditorItens
+                    linhas={linhas}
+                    opcoes={opcoes}
+                    onChange={setLinhas}
+                    erro={erros.itens}
+                />
 
                 {erroGeral && (
                     <p role="alert" className="form-alert">

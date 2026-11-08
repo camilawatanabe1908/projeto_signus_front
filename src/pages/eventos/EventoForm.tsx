@@ -4,12 +4,15 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Input } from "../../components/Input";
 import { Select } from "../../components/Select";
 import { Botao } from "../../components/Botao";
+import { EditorItens } from "../../components/EditorItens";
+import type { LinhaItem } from "../../components/EditorItens";
 import { atualizarEvento, buscarEvento, criarEvento } from "../../services/eventos";
 import type { StatusEvento } from "../../services/eventos";
 import { listarClientes } from "../../services/clientes";
 import type { Cliente } from "../../services/clientes";
 import { listarPlanos } from "../../services/planos";
 import type { Plano } from "../../services/planos";
+import { listarItens } from "../../services/itens";
 import { ApiError } from "../../services/api";
 import { mascararMoeda, moedaParaNumero } from "../../utils/mascaras";
 import { proximosStatus, rotulosStatus } from "../../utils/formatacoes";
@@ -32,6 +35,12 @@ type Erros = {
     dataInicio?: string;
     dataFim?: string;
     localEvento?: string;
+    itens?: string;
+};
+
+type Opcao = {
+    valor: string;
+    texto: string;
 };
 
 const formVazio: FormEvento = {
@@ -50,6 +59,8 @@ export function EventoForm() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [form, setForm] = useState<FormEvento>(formVazio);
+    const [linhas, setLinhas] = useState<LinhaItem[]>([]);
+    const [opcoesItens, setOpcoesItens] = useState<Opcao[]>([]);
     const [statusOriginal, setStatusOriginal] = useState<StatusEvento>("ORCAMENTO");
     const [clientes, setClientes] = useState<Cliente[]>([]);
     const [planos, setPlanos] = useState<Plano[]>([]);
@@ -64,9 +75,10 @@ export function EventoForm() {
         Promise.all([
             listarClientes(1, 100),
             listarPlanos(1, 100),
+            listarItens(1, 100),
             id !== undefined ? buscarEvento(Number(id)) : Promise.resolve(null),
         ])
-            .then(([listaClientes, listaPlanos, evento]) => {
+            .then(([listaClientes, listaPlanos, listaItens, evento]) => {
                 if (!ativo) {
                     return;
                 }
@@ -76,6 +88,12 @@ export function EventoForm() {
                     listaPlanos.dados.filter(
                         (plano) => plano.ativo || plano.id === evento?.planoId
                     )
+                );
+                setOpcoesItens(
+                    listaItens.dados.map((item) => ({
+                        valor: String(item.id),
+                        texto: `${item.codigo} - ${item.nome}`,
+                    }))
                 );
 
                 if (evento) {
@@ -94,6 +112,12 @@ export function EventoForm() {
                         observacoes: evento.observacoes ?? "",
                         status: evento.status,
                     });
+                    setLinhas(
+                        evento.itensExtras.map((item) => ({
+                            itemId: String(item.itemId),
+                            quantidade: String(item.quantidade),
+                        }))
+                    );
                 }
 
                 setCarregando(false);
@@ -148,6 +172,16 @@ export function EventoForm() {
             novosErros.localEvento = "O local deve ter entre 3 e 255 caracteres.";
         }
 
+        const idsUsados = linhas.map((linha) => linha.itemId);
+
+        if (linhas.some((linha) => linha.itemId === "")) {
+            novosErros.itens = "Selecione o item em todas as linhas.";
+        } else if (linhas.some((linha) => Number(linha.quantidade) < 1)) {
+            novosErros.itens = "A quantidade deve ser no mínimo 1.";
+        } else if (new Set(idsUsados).size !== idsUsados.length) {
+            novosErros.itens = "Não repita o mesmo item.";
+        }
+
         setErros(novosErros);
 
         if (Object.keys(novosErros).length > 0) {
@@ -164,6 +198,10 @@ export function EventoForm() {
             valorNegociado: moedaParaNumero(form.valorNegociado),
             observacoes: form.observacoes.trim(),
             status: id === undefined ? undefined : form.status,
+            itensExtras: linhas.map((linha) => ({
+                itemId: Number(linha.itemId),
+                quantidade: Number(linha.quantidade),
+            })),
         };
 
         setEnviando(true);
@@ -285,6 +323,14 @@ export function EventoForm() {
                     placeholder="Observações (opcional)"
                     value={form.observacoes}
                     onChange={(event) => setForm({ ...form, observacoes: event.target.value })}
+                />
+
+                <h2>Itens extras</h2>
+                <EditorItens
+                    linhas={linhas}
+                    opcoes={opcoesItens}
+                    onChange={setLinhas}
+                    erro={erros.itens}
                 />
 
                 {erroGeral && (

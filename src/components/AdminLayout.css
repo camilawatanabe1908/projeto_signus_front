@@ -1,20 +1,79 @@
 .admin {
+  --bg: #0b0d12;
+  --surface: #12161d;
+  --border: rgba(255, 255, 255, 0.09);
+  --text: #e7eaf0;
+  --text-muted: #8d95a5;
+  --navy: #ffffff;
+  --blue: #4d86dd;
+  --blue-dark: #3a72c4;
+  --error: #f0a3a3;
+  --campo-borda: rgba(255, 255, 255, 0.22);
+  --campo-foco: #7aa5ea;
+  --campo-opcao: #12161d;
+  --perigo-fundo: rgba(235, 87, 87, 0.08);
+  --perigo-fundo-hover: rgba(235, 87, 87, 0.16);
+  --perigo-borda: rgba(235, 87, 87, 0.3);
+  --perigo-texto: #f0a3a3;
+  --acao-borda: rgba(255, 255, 255, 0.16);
+  --acao-texto: #cdd5e3;
+  --acao-fundo-hover: rgba(255, 255, 255, 0.07);
+  --alerta-fundo: rgba(235, 87, 87, 0.08);
+  --alerta-texto: #f0a3a3;
+
   display: flex;
   min-height: 100vh;
+  color-scheme: dark;
+  background:
+    radial-gradient(800px 420px at 90% -5%, rgba(77, 134, 221, 0.07), transparent 60%),
+    var(--bg);
+  color: var(--text);
+}
+
+html:has(.admin),
+body:has(.admin) {
+  background-color: #0b0d12;
+}
+
+.admin a {
+  text-decoration: none;
+}
+
+.admin .form-field input:-webkit-autofill {
+  -webkit-text-fill-color: var(--text);
+  box-shadow: 0 0 0 100px #12161d inset;
 }
 
 .admin-menu {
-  width: 220px;
-  background: var(--surface);
+  width: 232px;
+  background: rgba(8, 10, 14, 0.9);
   border-right: 1px solid var(--border);
-  padding: 20px 16px;
+  padding: 24px 14px 20px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
 .admin-menu h2 {
-  color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, #ffffff 30%, #aab3c5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.admin-menu h2::before {
+  content: "";
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  background: url("../assets/logo-icone.png") center / contain no-repeat;
 }
 
 .admin-menu nav {
@@ -25,20 +84,68 @@
 }
 
 .admin-menu a {
-  padding: 8px 12px;
-  border-radius: 6px;
-  color: var(--text);
+  position: relative;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.admin-menu a:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .admin-menu a.active {
-  background: var(--bg);
-  color: var(--blue);
+  color: #fff;
   font-weight: 600;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.admin-menu a.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 22%;
+  bottom: 22%;
+  width: 3px;
+  border-radius: 3px;
+  background: #4d86dd;
+}
+
+.admin-menu > p {
+  padding: 12px 12px 0;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+
+.admin-menu .btn {
+  --btn-fundo: rgba(255, 255, 255, 0.05);
+  --btn-fundo-hover: rgba(255, 255, 255, 0.09);
+  --btn-brilho: inset 0 0 0 1px var(--border);
+  --btn-brilho-hover: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  color: var(--text);
 }
 
 .admin-conteudo {
   flex: 1;
-  padding: 24px;
+  min-width: 0;
+  padding: 32px 36px;
+}
+
+.admin-conteudo h1 {
+  margin-bottom: 4px;
+  font-size: 1.9rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #fff;
 }
 
 .admin-hamburguer {
@@ -50,8 +157,9 @@
   width: 40px;
   height: 40px;
   border: 1px solid var(--border);
-  border-radius: 6px;
-  background: var(--surface);
+  border-radius: 10px;
+  background: rgba(8, 10, 14, 0.9);
+  color: #fff;
   font-size: 1.2rem;
   cursor: pointer;
 }
@@ -67,15 +175,21 @@
     left: 0;
     bottom: 0;
     z-index: 10;
+    background: #0a0c10;
     transform: translateX(-100%);
     transition: transform 0.2s;
   }
 
   .admin-menu.aberto {
     transform: translateX(0);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
   }
 
   .admin-conteudo {
     padding: 64px 16px 24px;
+  }
+
+  .formulario {
+    padding: 22px 18px 20px;
   }
 }

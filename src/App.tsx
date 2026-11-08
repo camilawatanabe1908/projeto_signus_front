@@ -19,6 +19,7 @@ import { ClientesLista } from "./pages/clientes/ClientesLista";
 import { ClienteForm } from "./pages/clientes/ClienteForm";
 import { EventosLista } from "./pages/eventos/EventosLista";
 import { EventoForm } from "./pages/eventos/EventoForm";
+import { EventoFicha } from "./pages/eventos/EventoFicha";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
             <Route path="clientes/:id/editar" element={<ClienteForm key="editar" />} />
             <Route path="eventos" element={<EventosLista />} />
             <Route path="eventos/novo" element={<EventoForm key="novo" />} />
+            <Route path="eventos/:id" element={<EventoFicha />} />
             <Route path="eventos/:id/editar" element={<EventoForm key="editar" />} />
           </Route>
 
