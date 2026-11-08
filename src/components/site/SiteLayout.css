@@ -1,0 +1,82 @@
+.site {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.site-cabecalho {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 8px 5%;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.site-logo img {
+    display: block;
+    height: 56px;
+}
+
+.site-menu {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.site-menu a {
+    color: var(--navy);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.site-menu a:hover,
+.site-menu a.active {
+    color: var(--blue);
+}
+
+.site-menu .site-menu-destaque {
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.site-menu-sair {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 999px;
+    background: none;
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.site-menu-sair:hover {
+    color: var(--blue);
+}
+
+.site-conteudo {
+    flex: 1;
+}
+
+.site-rodape {
+    padding: 24px 5%;
+    background: var(--navy);
+    color: #fff;
+    text-align: center;
+}
+
+.site-rodape p {
+    margin-top: 4px;
+    font-size: 0.9rem;
+    color: #b8c3dc;
+}

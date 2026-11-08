@@ -5,10 +5,11 @@ import { validarEmail } from "../utils/validacoes";
 import { Input } from "../components/Input";
 import { login } from "../services/autenticacao";
 import { ApiError } from "../services/api";
-import logo from "../assets/logo-escura.png";
+import logo from "../assets/logo-clara.png";
 import "./Auth.css";
 import { Botao } from "../components/Botao";
 import { useUsuario } from "../contexts/UsuarioContext";
+import { rotaInicial } from "../utils/perfis";
 
 export function Login() {
     const navigate = useNavigate();
@@ -54,7 +55,7 @@ export function Login() {
         try {
             const usuario = await login(email, senha);
             atualizarUsuario(usuario);
-            navigate("/admin/home");
+            navigate(rotaInicial(usuario.perfil));
         } catch (erro) {
             setErroGeral(
                 erro instanceof ApiError ? erro.message : "Erro inesperado. Tente novamente."
@@ -72,6 +73,10 @@ export function Login() {
                 </div>
 
                 <h1 className="auth-title">Entrar</h1>
+
+                <p className="auth-aviso">
+                    O acesso é liberado para clientes que já pediram orçamento à Signus.
+                </p>
 
                 <form onSubmit={handleSubmit} noValidate className="auth-form">
                     <Input
@@ -102,7 +107,10 @@ export function Login() {
                 </form>
 
                 <p className="auth-footer">
-                    Não tem conta? <Link to="/admin/cadastro">Cadastre-se</Link>
+                    Primeiro acesso? <Link to="/cadastro">Ative sua conta</Link>
+                </p>
+                <p className="auth-footer">
+                    Ainda não é cliente? <Link to="/orcamento">Peça seu orçamento</Link>
                 </p>
             </div>
         </div>

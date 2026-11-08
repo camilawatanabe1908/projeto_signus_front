@@ -20,6 +20,7 @@ import { ClienteForm } from "./pages/clientes/ClienteForm";
 import { EventosLista } from "./pages/eventos/EventosLista";
 import { EventoForm } from "./pages/eventos/EventoForm";
 import { EventoFicha } from "./pages/eventos/EventoFicha";
+import { MeusEventos } from "./pages/cliente/MeusEventos";
 
 function App() {
   return (
@@ -30,12 +31,20 @@ function App() {
             <Route path="/" element={<Inicio />} />
             <Route path="/galeria" element={<Galeria />} />
             <Route path="/orcamento" element={<Orcamento />} />
+            <Route
+              path="/cliente"
+              element={
+                <RotaProtegida area="cliente">
+                  <MeusEventos />
+                </RotaProtegida>
+              }
+            />
           </Route>
 
           <Route
             path="/admin"
             element={
-              <RotaProtegida>
+              <RotaProtegida area="equipe">
                 <AdminLayout />
               </RotaProtegida>
             }
@@ -57,6 +66,8 @@ function App() {
             <Route path="eventos/:id/editar" element={<EventoForm key="editar" />} />
           </Route>
 
+          <Route path="/login" element={<Login />} />
+          <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/admin/login" element={<Login />} />
           <Route path="/admin/cadastro" element={<Cadastro />} />
           <Route

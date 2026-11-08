@@ -6,7 +6,7 @@ import { mascararCpf } from "../utils/mascaras";
 import { Input } from "../components/Input";
 import { cadastrar } from "../services/autenticacao";
 import { ApiError } from "../services/api";
-import logo from "../assets/logo-escura.png";
+import logo from "../assets/logo-clara.png";
 import "./Auth.css";
 import { Botao } from "../components/Botao";
 
@@ -83,7 +83,7 @@ export function Cadastro() {
                 senha,
                 confirmacaoSenha: confirmarSenha,
             });
-            navigate("/admin/login");
+            navigate("/login");
         } catch (erro) {
             if (erro instanceof ApiError) {
                 setErroGeral(erro.message);
@@ -102,7 +102,12 @@ export function Cadastro() {
                     <img src={logo} alt="Signus Som e Luz" className="auth-logo" />
                 </div>
 
-                <h1 className="auth-title">Criar conta</h1>
+                <h1 className="auth-title">Primeiro acesso</h1>
+
+                <p className="auth-aviso">
+                    Use o mesmo CPF e e-mail informados no seu orçamento. O acesso é liberado
+                    apenas para clientes da Signus.
+                </p>
 
                 <form onSubmit={handleSubmit} noValidate className="auth-form">
                     <Input
@@ -152,12 +157,15 @@ export function Cadastro() {
                     )}
 
                     <Botao type="submit" disabled={enviando}>
-                        Cadastrar
+                        Ativar conta
                     </Botao>
                 </form>
 
                 <p className="auth-footer">
-                    Já tem conta? <Link to="/admin/login">Entrar</Link>
+                    Já tem acesso? <Link to="/login">Entrar</Link>
+                </p>
+                <p className="auth-footer">
+                    Ainda não é cliente? <Link to="/orcamento">Peça seu orçamento</Link>
                 </p>
             </div>
         </div>

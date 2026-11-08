@@ -1,0 +1,83 @@
+.meus-eventos {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 5%;
+}
+
+.meus-eventos h1 {
+    color: var(--navy);
+}
+
+.meus-eventos-intro {
+    margin: 8px 0 24px;
+    color: var(--text-muted);
+}
+
+.meus-eventos-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.meus-evento {
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--blue);
+    border-radius: 8px;
+    background: var(--surface);
+}
+
+.meus-evento-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.meus-evento-topo h3 {
+    color: var(--navy);
+}
+
+.meus-status {
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: #e8eefb;
+    color: var(--navy);
+    font-size: 0.8rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.status-CONFIRMADO,
+.status-EM_PREPARACAO {
+    background: #dcecff;
+    color: #194f9f;
+}
+
+.status-CONCLUIDO {
+    background: #dff3e3;
+    color: #1d6b32;
+}
+
+.status-CANCELADO {
+    background: #fbe3e3;
+    color: var(--error);
+}
+
+.meus-evento-linha {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.meus-evento-linha dt {
+    color: var(--text-muted);
+}
+
+.meus-evento-linha dd {
+    text-align: right;
+    font-weight: 600;
+}
