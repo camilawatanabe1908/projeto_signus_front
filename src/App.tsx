@@ -20,6 +20,8 @@ import { ClienteForm } from "./pages/clientes/ClienteForm";
 import { EventosLista } from "./pages/eventos/EventosLista";
 import { EventoForm } from "./pages/eventos/EventoForm";
 import { EventoFicha } from "./pages/eventos/EventoFicha";
+import { EquipeLista } from "./pages/equipe/EquipeLista";
+import { EquipeForm } from "./pages/equipe/EquipeForm";
 import { MeusEventos } from "./pages/cliente/MeusEventos";
 
 function App() {
@@ -64,6 +66,8 @@ function App() {
             <Route path="eventos/novo" element={<EventoForm key="novo" />} />
             <Route path="eventos/:id" element={<EventoFicha />} />
             <Route path="eventos/:id/editar" element={<EventoForm key="editar" />} />
+            <Route path="equipe" element={<EquipeLista />} />
+            <Route path="equipe/novo" element={<EquipeForm />} />
           </Route>
 
           <Route path="/login" element={<Login />} />

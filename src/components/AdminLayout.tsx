@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useUsuario } from "../contexts/UsuarioContext";
+import { PERFIL_ADMIN } from "../utils/perfis";
 import { Botao } from "./Botao";
 import "./AdminLayout.css";
 
@@ -34,6 +35,9 @@ export function AdminLayout() {
                     <NavLink to="/admin/itens">Itens</NavLink>
                     <NavLink to="/admin/planos">Planos</NavLink>
                     <NavLink to="/admin/eventos">Eventos</NavLink>
+                    {usuario?.perfil === PERFIL_ADMIN && (
+                        <NavLink to="/admin/equipe">Equipe</NavLink>
+                    )}
                     <NavLink to="/admin/perfil">Meus dados</NavLink>
                 </nav>
 
