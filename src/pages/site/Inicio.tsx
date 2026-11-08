@@ -40,7 +40,7 @@ export function Inicio() {
             <section
                 className="inicio-hero"
                 style={{
-                    backgroundImage: `linear-gradient(rgba(5, 10, 30, 0.6), rgba(5, 10, 30, 0.75)), url(${fundo})`,
+                    backgroundImage: `url(${fundo})`,
                 }}
             >
                 <h1>Som, luz e estrutura para o seu evento</h1>

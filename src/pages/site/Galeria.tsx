@@ -86,7 +86,7 @@ export function Galeria() {
     return (
         <section className="galeria">
             <h1>Galeria de eventos</h1>
-            <p className="galeria-intro">Alguns dos eventos que já fizemos com a Signus.</p>
+            <p className="galeria-intro">Alguns dos eventos realizados pela Signus.</p>
 
             {fotos.length === 0 && <p>Nenhuma foto encontrada.</p>}
 

@@ -1,5 +1,5 @@
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import logo from "../../assets/logo-escura.png";
+import logo from "../../assets/logo-clara.png";
 import { useUsuario } from "../../contexts/UsuarioContext";
 import { PERFIL_CLIENTE, rotaInicial } from "../../utils/perfis";
 import "./SiteLayout.css";

@@ -68,6 +68,10 @@ export function Login() {
     return (
         <div className="auth-page">
             <div className="auth-card">
+                <Link to="/" className="auth-voltar">
+                    ← Voltar ao site
+                </Link>
+
                 <div className="auth-brand">
                     <img src={logo} alt="Signus Som e Luz" className="auth-logo" />
                 </div>
