@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { REGEX_SENHA, validarCpf, somenteNumeros } from "../utils/validacoes";
-import { mascararCpf } from "../utils/mascaras";
+import { REGEX_SENHA, validarCpf, validarNome, somenteNumeros } from "../utils/validacoes";
+import { mascararCpf, mascararNome } from "../utils/mascaras";
 import { rotaInicial } from "../utils/perfis";
 import { formatarIniciais, rotulosPerfil } from "../utils/formatacoes";
 import { Input } from "../components/Input";
@@ -82,6 +82,8 @@ export function Perfil() {
             novosErros.nome = "Informe o nome.";
         } else if (nome.trim().length < 3) {
             novosErros.nome = "O nome deve ter pelo menos 3 caracteres.";
+        } else if (!validarNome(nome)) {
+            novosErros.nome = "Use apenas letras no nome.";
         }
 
         setErros(novosErros);
@@ -247,8 +249,10 @@ export function Perfil() {
                             <Input
                                 type="text"
                                 placeholder="Nome completo"
+                                obrigatorio
+                                maxLength={180}
                                 value={nome}
-                                onChange={(event) => setNome(event.target.value)}
+                                onChange={(event) => setNome(mascararNome(event.target.value))}
                                 erro={erros.nome}
                             />
 
@@ -292,6 +296,9 @@ export function Perfil() {
                             <Input
                                 type="text"
                                 placeholder="000.000.000-00"
+                                obrigatorio
+                                maxLength={14}
+                                inputMode="numeric"
                                 value={cpf}
                                 onChange={(event) => setCpf(mascararCpf(event.target.value))}
                                 erro={erros.cpf}
@@ -312,7 +319,7 @@ export function Perfil() {
                         </form>
                     ) : (
                         <dl>
-                            <Linha rotulo="CPF" valor="•••••••••-••" />
+                            <Linha rotulo="CPF" valor="•••.•••.•••-••" />
                         </dl>
                     )}
                 </section>
@@ -336,6 +343,8 @@ export function Perfil() {
                             <Input
                                 type="password"
                                 placeholder="Senha atual"
+                                obrigatorio
+                                maxLength={72}
                                 value={senhaAtual}
                                 onChange={(event) => setSenhaAtual(event.target.value)}
                                 erro={erros.senhaAtual}
@@ -344,6 +353,8 @@ export function Perfil() {
                             <Input
                                 type="password"
                                 placeholder="Nova senha"
+                                obrigatorio
+                                maxLength={72}
                                 value={senha}
                                 onChange={(event) => setSenha(event.target.value)}
                                 erro={erros.senha}
@@ -352,6 +363,8 @@ export function Perfil() {
                             <Input
                                 type="password"
                                 placeholder="Confirmar nova senha"
+                                obrigatorio
+                                maxLength={72}
                                 value={confirmarSenha}
                                 onChange={(event) => setConfirmarSenha(event.target.value)}
                                 erro={erros.confirmarSenha}
